@@ -30,6 +30,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
+            -Dsonar.projectKey=git-workflow-test
+            -Dsonar.organization=johnjonathan
             -Dsonar.sources=src/app/
             -Dsonar.test.exclusions=**/*.spec.*
             -Dsonar.tests=src/test/
