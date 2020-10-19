@@ -15,10 +15,10 @@ jobs:
         node-version: [12.x, 14.x]
 
     steps:
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
+      # - name: Extract branch name
+      #   shell: bash
+      #   run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      #   id: extract_branch
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -27,19 +27,19 @@ jobs:
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1.4
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=git-workflow-test
-            -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
-            -Dsonar.organization=johnjonathan
-            -Dsonar.sources=src/app/
-            -Dsonar.test.inclusions=src/**/*.spec.ts
-            -Dsonar.test.exclusions=**/*.spec.*
-            -Dsonar.tests=src/test/
-            -Dsonar.verbose=true
-            -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info,
-            -Dsonar.testExecutionReportPaths=test-report.xml
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v1.4
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   with:
+      #     args: >
+      #       -Dsonar.projectKey=git-workflow-test
+      #       -Dsonar.branch.name=${{ steps.extract_branch.outputs.branch }}
+      #       -Dsonar.organization=johnjonathan
+      #       -Dsonar.sources=src/app/
+      #       -Dsonar.test.inclusions=src/**/*.spec.ts
+      #       -Dsonar.test.exclusions=**/*.spec.*
+      #       -Dsonar.tests=src/test/
+      #       -Dsonar.verbose=true
+      #       -Dsonar.typescript.lcov.reportPaths=coverage/lcov.info
+      #       -Dsonar.testExecutionReportPaths=test-report.xml
