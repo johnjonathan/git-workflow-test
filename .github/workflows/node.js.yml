@@ -29,8 +29,13 @@ jobs:
     - run: npm test
     - name: SonarCloud Scan    
       uses: SonarSource/sonarcloud-github-action@v1.4
-#       with:
-      # Additional arguments to the sonarcloud scanner
+        with:
+           args: >            
+            -Dsonar.sources=src/app/
+            -Dsonar.test.exclusions=**/*.spec.*
+            -Dsonar.tests=src/test/
+            -Dsonar.verbose=true
+      
 #         args: # optional
         # Set the sonar.projectBaseDir analysis property
 #         projectBaseDir: # optional, default is .
